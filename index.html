@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Added link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <!-- Link to javascript, has been tested so I know the pathing is correct -->
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+
+    <title>Star Wars Click-RPG</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Star Wars RPG!</h1>
+            </div>
+        </div>
+        <!-- Wrestled with using jQuery to build the character selection screen versus building it in here and then using jQuery to modify the elements. My
+        theory was that if I built the screen through jQuery it would be easier to add more characters? -->
+        <div class="row">
+            <div class="col-xs-3 char_select">
+                <img class="img img-responsive" src="assets/images/obiWan.jpeg" id="obiWan" alt="Obi-Wan Kenobi">
+            </div>
+            <div class="col-xs-3 char_select">
+                <img class="img img-responsive" src="assets/images/luke.jpeg" id="luke" alt="Luke Skywalker">
+            </div>
+            <div class="col-xs-3 char_select">
+                <img class="img img-responsive" src="assets/images/darthSidious.jpeg" id="darthSidious" alt="Darth Sidious">
+            </div>
+            <div class="col-xs-3 char_select">
+                <img class="img img-responsive" src="assets/images/darthMaul.jpeg" id="darthMaul" alt="Darth Maul">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Your Character</h2>
+                <div class="row">
+                    <div class="col-xs-3" id="charChosen">
+                        <!-- Adding image of selected hero to here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Enemies Available To Attack</h2>
+                <div class="row" id="charsNotChosen">
+                    <!-- Notice I didn't add columns to this one, because the jquery moved them for me! -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Fight Section</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <button name="Attack">Attack!</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Defender</h2>
+                <div class="row">
+                    <div class="col-xs-3" id="defender">
+                        <!-- Adding image of defender to here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="battle_info">
+                    <!-- Display battle info here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
