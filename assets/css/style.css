@@ -3,10 +3,20 @@ body {
     color: #ff6;
   }
 
-.char_select img {
+.hero_select img,
+#charChosen img {
   border: 1px solid limegreen;
+}
+
+#charsNotChosen img,
+#defender img {
+  border: 1px solid red;
 }
 
 button {
   color: black; 
+}
+
+#battle-info {
+  color: #ff6;
 }
