@@ -5,12 +5,12 @@ body {
 
 .hero_select img,
 #charChosen img {
-  border: 1px solid limegreen;
+  border: 2px solid limegreen;
 }
 
 #charsNotChosen img,
 #defender img {
-  border: 1px solid red;
+  border: 2px solid red;
 }
 
 button {
