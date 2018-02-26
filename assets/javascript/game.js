@@ -42,26 +42,26 @@ $(document).ready(function () {
     var luke = {
         name: "Luke Skywalker",
         HP: 100,
-        AP: 5,
-        CAP: 5,
+        AP: 10,
+        CAP: 10,
     };
     var obiWan = {
         name: "Obi-Wan Kenobi",
         HP: 120,
-        AP: 8,
-        CAP: 10,
+        AP: 12,
+        CAP: 12,
     };
     var darthSidious = {
         name: "Darth Sidious",
         HP: 150,
         AP: 15,
-        CAP: 20,
+        CAP: 15,
     };
     var darthMaul = {
         name: "Darth Maul",
         HP: 180,
-        AP: 25,
-        CAP: 25,
+        AP: 20,
+        CAP: 20,
     };
 
     //A simple var declaration that sets my status for attacking so the game knows to continue with stat edits instead of resetting them every time the button is clicked.
