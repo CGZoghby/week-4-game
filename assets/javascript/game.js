@@ -1,7 +1,4 @@
 $(document).ready(function () {
-
-    //TODO: Fix victory screen. And dynamically update stats as characters become damaged.
-
     //Create object of available characters, each with six attributes, in this order: Name, HP (health points), AP (attack power), CAP (counter attack power)
     //So why is this defined object not passing into my local functions?
     //  var charObject = {
@@ -70,6 +67,7 @@ $(document).ready(function () {
     //A simple var declaration that sets my status for attacking so the game knows to continue with stat edits instead of resetting them every time the button is clicked.
     var attackClick = 0;
     var newDefender = 0;
+    var charsDefeated = 0; //A little dirty trick for checking when to display victory screen
 
     //primary selector for choosing hero and populating remaining list with defenders
     $(".char_select").on("click", function () {
@@ -105,49 +103,59 @@ $(document).ready(function () {
     });
 
     $("#attack").on("click", function () {
+        //So first things first I assign a hero variable so the game knows exactly whom it's dealing with.
         var hero = $("#charChosen").children("img")[0]["id"];
+        //Check if defender is empty
         if ($("#defender").children().length === 0) {
             $("#battle_info").html("No enemy here.")
-        } else {
-            var defender = $("#defender").children().children("img")[0]["id"];
-            if (attackClick === 0) {
-                heroATK = eval(hero).AP;
+        } else { //If defender is not empty, actually play the game
+            var defender = $("#defender").children().children("img")[0]["id"]; //I'm really proud of figuring out both these selectors
+            if (attackClick === 0) { //Attack click is my initialization variable. This if block only fires at the start of the game, with the first fight
+                heroATK = eval(hero).AP; //the eval code is how I can take the string id's tied to the images and get their object stats (another thing I'm proud of)
                 heroHP = eval(hero).HP;
                 heroCAP = eval(hero).CAP;
                 heroName = eval(hero).name;
             }
-            if (newDefender === 0) {
+            if (newDefender === 0) { //newDefender is how I preserve the hero's stats but can choose to fight new people, re-initializes with every new enemy
                 defATK = eval(defender).AP;
                 defHP = eval(defender).HP;
                 defCAP = eval(defender).CAP;
                 defName = eval(defender).name;
             };
+            //The actual DOM writing
             $("#battle_info").html("<p> You attacked " + defName + " for " + heroATK + " damage." + "<br></p>" + "<p> " + defName + " attacked you back for " + defCAP + " damage." + "<br></p>");
-            attackClick = 1;
+            attackClick = 1; //how I set those stages up so I don't step unnecessarily through more if blocks
             newDefender = 1;
-            //Need to dynamically target just the hero's and defender's captions to update them with correct stats
-            //Also need to figure out why victory screen for defeating everyone isn't working
+            //dynamically update defenders HP after they get hit
             defHP = defHP - heroATK;
-            if ($("#charsNotChosen").children().length === 0) {
-                $("#defender").empty()
-                $("battle_info").html("<p> You Won!!!!! </p>")
-                $("#restart").css("visibility", "visible")
-            } else if (defHP <= 0 && $("#charsNotChosen").children().length > 0) {
+            $("#defender > div > div.caption_bot").html(defHP); //parent child selecting is great because it allows me to format all captions under the same class instead of id's
+            if (defHP <= 0) { //this selector works. 
                 $("#defender").empty();
-                $("#battle_info").html("<p> You have defeated " + defName + ", you can choose to fight another enemy.")
                 newDefender = 0;
+                charsDefeated++;
+                if (charsDefeated === 3) { //yea ok so this is hard coded and that's lousy. I would need to somehow check against the length of possible characters minus 1, but I can't put
+                    $("#battle_info").html("<p> You Won!!!!! </p>") //all possible characters into the same object because I-don't-know-why, so not sure how to make that work in this case
+                    $("#restart").css("visibility", "visible")
+                } else {
+                    $("#battle_info").html("<p> You have defeated " + defName + ", you can choose to fight another enemy.")
+                };
             };
+            //dynamically update hero HP and attack power
             heroATK = heroATK + eval(hero).AP;
-            heroHP = heroHP - defCAP;
+            if (defHP > 0) { //if the defender dies on attack, do not hit me back (duh)
+                heroHP = heroHP - defCAP;
+            };
+            $("#charChosen > div.caption_bot").html(heroHP);
+            //In the rare case you are defeated because mechanics of the game aren't clear (because they aren't)
             if (heroHP <= 0) {
                 $("#battle_info").html("<p> You have been defeated...GAME OVER!!! <br>")
                 //so having already dealt with an issue where I can't do jQuery selector commands on newly created elements within the DOM, I am instead hiding and revealing elements already present.
                 $("#restart").css("visibility", "visible");
             };
-
         };
     });
 
+    //Is this cheating? Instead of resetting and repopulating values (seems nightmarish with moving images and divs around) I can just tell the window to reload on button click
     $("#restart").on("click", function () {
         window.location.reload();
     });
